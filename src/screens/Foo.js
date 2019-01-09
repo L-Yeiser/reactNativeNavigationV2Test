@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { Navigation } from "react-native-navigation";
 import {
   View,
   TouchableOpacity,
