@@ -12,7 +12,9 @@ export default class Foo extends PureComponent {
       topBar: {
         visible: false,
       },
-      backgroundImage: require('../../assets/images/authBackground.png'),
+      layout: {
+        backgroundColor: 'blue',
+      },
     };
   }
 
@@ -21,10 +23,15 @@ export default class Foo extends PureComponent {
 
     this.showModal = this.showModal.bind(this);
     this.push = this.push.bind(this);
+    this.pushWithImage = this.pushWithImage.bind(this);
+  }
 
-    this.state = {
-      foo: 'purple',
-    }
+  pushWithImage() {
+    Navigation.push(this.props.componentId, {
+      component: {
+        name: 'screens.Baz',
+      },
+    });
   }
 
   showModal() {
@@ -69,14 +76,23 @@ export default class Foo extends PureComponent {
           <Text>Press Here To View Modal</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          // onPress={() => this.setState({ foo: 'green' })}
           onPress={this.push}
           style={{
             backgroundColor: 'green',
             padding: 10,
+            marginBottom: 20,
           }}
         >
           <Text>Press Here To Push Screen</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={this.pushWithImage}
+          style={{
+            backgroundColor: 'red',
+            padding: 10,
+          }}
+        >
+          <Text>Press Here To Push Screen With background Image</Text>
         </TouchableOpacity>
       </View>
     );
