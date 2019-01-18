@@ -6,7 +6,7 @@ import {
   Text,
 } from 'react-native';
 
-export default class Foo extends PureComponent {
+export default class Home extends PureComponent {
   static options() {
     return {
       topBar: {
@@ -21,35 +21,44 @@ export default class Foo extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.showModal = this.showModal.bind(this);
-    this.push = this.push.bind(this);
+    this.pushDrawBehindStatic = this.pushDrawBehindStatic.bind(this);
+    this.pushDrawBehindComponentMount = this.pushDrawBehindComponentMount.bind(this);
+    this.showModalDrawBehindComponentMount = this.showModalDrawBehindComponentMount.bind(this);
     this.pushWithImage = this.pushWithImage.bind(this);
   }
 
   pushWithImage() {
     Navigation.push(this.props.componentId, {
       component: {
-        name: 'screens.Baz',
+        name: 'screens.WithBackgroundImage',
       },
     });
   }
 
-  showModal() {
+  showModalDrawBehindComponentMount() {
     Navigation.showModal({
       stack: {
         children: [{
           component: {
-            name: 'screens.Bar',
+            name: 'screens.DrawBehindDidMount',
           },
         }],
       },
     });
   }
 
-  push() {
+  pushDrawBehindStatic() {
     Navigation.push(this.props.componentId, {
       component: {
-        name: 'screens.Bar',
+        name: 'screens.DrawBehindStatic',
+      },
+    });
+  }
+
+  pushDrawBehindComponentMount() {
+    Navigation.push(this.props.componentId, {
+      component: {
+        name: 'screens.DrawBehindDidMount',
       },
     });
   }
@@ -66,25 +75,38 @@ export default class Foo extends PureComponent {
         }}
       >
         <TouchableOpacity
-          onPress={this.showModal}
+          onPress={this.pushDrawBehindStatic}
           style={{
             backgroundColor: 'white',
             padding: 10,
             marginBottom: 20,
           }}
         >
-          <Text>Press Here To View Modal</Text>
+          <Text>Push Screen Static Draw Behind (Works)</Text>
         </TouchableOpacity>
+
         <TouchableOpacity
-          onPress={this.push}
+          onPress={this.pushDrawBehindComponentMount}
           style={{
             backgroundColor: 'green',
             padding: 10,
             marginBottom: 20,
           }}
         >
-          <Text>Press Here To Push Screen</Text>
+          <Text>Push Screen CompDidMoun Draw Behind (Does Not Work)</Text>
         </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={this.showModalDrawBehindComponentMount}
+          style={{
+            backgroundColor: 'purple',
+            padding: 10,
+            marginBottom: 20,
+          }}
+        >
+          <Text>ShowModal CompDidMoun Draw Behind (Works)</Text>
+        </TouchableOpacity>
+
         <TouchableOpacity
           onPress={this.pushWithImage}
           style={{

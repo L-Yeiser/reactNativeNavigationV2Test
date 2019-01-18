@@ -1,45 +1,42 @@
-package com.reactnativenavigationv2test;
+package com.reactnativenavigation.playground;
 
-import android.app.Application;
+import android.support.annotation.Nullable;
 
-import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
-import com.facebook.react.shell.MainReactPackage;
-import com.facebook.soloader.SoLoader;
+import com.facebook.react.uimanager.UIImplementationProvider;
+import com.reactnativenavigation.NavigationApplication;
+import com.reactnativenavigation.react.NavigationReactNativeHost;
+import com.reactnativenavigation.react.SyncUiImplementation;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
-public class MainApplication extends Application implements ReactApplication {
+public class MainApplication extends NavigationApplication {
 
-  private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
-    @Override
-    public boolean getUseDeveloperSupport() {
-      return BuildConfig.DEBUG;
+    // @Override
+    public void onCreate() {
+        super.onCreate();
+        registerExternalComponent("RNNCustomComponent", new FragmentCreator());
     }
 
     @Override
-    protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
-          new MainReactPackage()
-      );
+    protected ReactNativeHost createReactNativeHost() {
+        return new NavigationReactNativeHost(this) {
+            @Override
+            protected String getJSMainModuleName() {
+                return "index";
+            }
+
+            @Override
+            protected UIImplementationProvider getUIImplementationProvider() {
+                return new SyncUiImplementation.Provider();
+            }
+        };
     }
 
     @Override
-    protected String getJSMainModuleName() {
-      return "index";
+    public boolean isDebug() {
+        return BuildConfig.DEBUG;
     }
-  };
-
-  @Override
-  public ReactNativeHost getReactNativeHost() {
-    return mReactNativeHost;
-  }
-
-  @Override
-  public void onCreate() {
-    super.onCreate();
-    SoLoader.init(this, /* native exopackage */ false);
-  }
 }

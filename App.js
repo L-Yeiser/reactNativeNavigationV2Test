@@ -1,13 +1,15 @@
 import { Navigation } from "react-native-navigation";
 
-import Foo from './src/screens/Foo.js';
-import Bar from './src/screens/Bar.js';
-import Baz from './src/screens/Baz.js';
+import Home from './src/screens/Home.js';
+import DrawBehindStatic from './src/screens/DrawBehindStatic.js';
+import DrawBehindDidMount from './src/screens/DrawBehindDidMount.js';
+import WithBackgroundImage from './src/screens/WithBackgroundImage';
 
 function registerScreens() {
-  Navigation.registerComponent('screens.Foo', () => Foo);
-  Navigation.registerComponent('screens.Bar', () => Bar);
-  Navigation.registerComponent('screens.Baz', () => Baz);
+  Navigation.registerComponent('screens.Home', () => Home);
+  Navigation.registerComponent('screens.DrawBehindStatic', () => DrawBehindStatic);
+  Navigation.registerComponent('screens.DrawBehindDidMount', () => DrawBehindDidMount);
+  Navigation.registerComponent('screens.WithBackgroundImage', () => WithBackgroundImage);
 }
 
 export const start = () => {
@@ -20,7 +22,7 @@ export const start = () => {
           id: 'TEST',
           children: [{
             component: {
-              name: 'screens.Foo',
+              name: 'screens.Home',
             },
           }],
         },
